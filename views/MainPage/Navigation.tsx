@@ -7,7 +7,7 @@ import { MoonSvg, SunSvg } from "@/public/icons";
 import cls from "./styles.module.scss";
 
 export default function Navigation() {
-  const [isDark, setIsDark] = useState(localStorage.getItem("theme") === "dark");
+  const [isDark, setIsDark] = useState(false);
 
   const toggleTheme = () => {
     const isDark = document.documentElement.getAttribute("data-theme") === "dark";
@@ -17,8 +17,10 @@ export default function Navigation() {
   };
 
   useEffect(() => {
-    setIsDark(localStorage.getItem("theme") === "dark");
-    document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") === "dark" ? "dark" : "");
+    if (typeof window !== "undefined") {
+      setIsDark(localStorage.getItem("theme") === "dark");
+      document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") === "dark" ? "dark" : "");
+    }
   }, []);
 
   return (
